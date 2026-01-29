@@ -692,6 +692,24 @@
                 <button class="hl-btn yellow" onmousedown="event.preventDefault(); toggleHighlight('yellow')" title="노란 형광펜"></button>
                 <button class="hl-btn green" onmousedown="event.preventDefault(); toggleHighlight('green')" title="연두 형광펜"></button>
             </div>
+
+// 폰트 크기 설정                        
+            <div style="width:1px; background:#cbd5e1; margin:0 5px;"></div>
+            <button class="tool-btn"
+              onmousedown="event.preventDefault(); applyFontSize('0.9rem')">
+              A-
+            </button>
+            <button class="tool-btn"
+              onmousedown="event.preventDefault(); applyFontSize('1.1rem')">
+              A
+            </button>
+            <button class="tool-btn"
+              onmousedown="event.preventDefault(); applyFontSize('1.3rem')">
+              A+
+            </button>
+
+
+            
             <div style="padding:0 1.5rem 1.5rem; flex:1; display:flex; flex-direction:column; overflow:hidden;">
                 <div class="input-group">
                     <label style="font-size:0.85rem; font-weight:700; color:#64748b; display:block; margin-bottom:0.5rem;">🔑 키워드 / 암기법</label>
@@ -1294,6 +1312,27 @@ function closeModal() { document.getElementById('input-modal').classList.remove(
 function execCmd(cmd) { document.execCommand(cmd, false, null); }
 function execColor(color) { document.execCommand('foreColor', false, color); }
 
+
+// 폰트 사이즈 js
+
+function applyFontSize(size) {
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0) return;
+
+  const range = sel.getRangeAt(0);
+  if (range.collapsed) return;
+
+  const span = document.createElement('span');
+  span.style.fontSize = size;
+
+  range.surroundContents(span);
+
+  sel.removeAllRanges();
+  sel.addRange(range);
+}
+
+
+    
 // ✅ 형광펜 토글 (같은 색이면 제거, 다른 색이면 적용/변경)
 function toggleHighlight(color) {
   const sel = window.getSelection();
@@ -1512,3 +1551,4 @@ init();
 </script>
 </body>
 </html>
+
